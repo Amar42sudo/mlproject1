@@ -1,6 +1,8 @@
 import os
 import sys
 import pickle
+import dill
+
 
 from sklearn.metrics import accuracy_score
 from sklearn.model_selection import GridSearchCV
@@ -90,4 +92,11 @@ def evaluate_model(
 
     except Exception as e:
 
+        raise CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as file_obj:
+            return dill.load(file_obj)
+    except Exception as e:
         raise CustomException(e, sys)
